@@ -31,12 +31,11 @@ def get_all_signal_file_names(read_id_file, summary_file):
                 signal_files.append(summary_dictionary[read_id])
             else:
                 print("WARNING: ", read_id, " NOT PRESENT IN SUMMARY FILE")
-
     print("TOTAL " + str(len(signal_files)) + " READS FOUND\n")
     return signal_files
 
 
-def get_absolute_filepath(file_names, signal_directory, output_directory):
+def get_absolute_filepath(extract_file_names, signal_directory, output_directory):
     if signal_directory[-1] != "/":
         signal_directory += "/"
 
@@ -46,11 +45,16 @@ def get_absolute_filepath(file_names, signal_directory, output_directory):
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
+    count = 0
     for root, dirs, files in os.walk(signal_directory):
-        for file in files:
-            print(file, os.path.join(root, file))
-        for dir in dirs:
-            print(dir, os.path.join(root, dir))
+        for file_name in files:
+            if file_name in extract_file_names:
+                print("COPYING " + file_name + " TO " + output_directory)
+                src_file = os.path.abspath(file_name)
+                copyfile(src_file, output_directory+file_name)
+                count= count + 1
+
+    print("TOTAL " + count + " FAST5 FILES COPIED TO " + output_directory)
 
 
 if __name__ == '__main__':
