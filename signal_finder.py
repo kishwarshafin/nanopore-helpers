@@ -2,9 +2,7 @@ import os
 from argparse import ArgumentParser
 from argparse import ArgumentDefaultsHelpFormatter
 from collections import defaultdict
-import glob
-from shutil import copyfile
-from pathlib import Path
+import shutil
 """
 USE THIS SCRIPT TO EXTRACT ALL READS FROM A POOL OF READS FOR A SPECIFIC SPECIES.
 REQUIRES:
@@ -46,12 +44,13 @@ def get_absolute_filepath(extract_file_names, signal_directory, output_directory
         os.makedirs(output_directory)
 
     count = 0
+    total = len(extract_file_names)
     for root, dirs, files in os.walk(signal_directory):
         for file_name in files:
             if file_name in extract_file_names:
-                print("COPYING " + file_name + " TO " + output_directory)
+                print("[" + str(count) + "/" + str(total) + "]: MOVING " + file_name + " TO " + output_directory)
                 src_file = os.path.join(root, file_name)
-                copyfile(src_file, output_directory+file_name)
+                shutil.move(src_file, output_directory+file_name)
                 count = count + 1
 
     print("TOTAL " + count + " FAST5 FILES COPIED TO " + output_directory)
