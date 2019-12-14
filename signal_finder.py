@@ -4,6 +4,7 @@ from argparse import ArgumentDefaultsHelpFormatter
 from collections import defaultdict
 import glob
 from shutil import copyfile
+from pathlib import Path
 """
 USE THIS SCRIPT TO EXTRACT ALL READS FROM A POOL OF READS FOR A SPECIFIC SPECIES.
 REQUIRES:
@@ -35,9 +36,9 @@ def get_all_signal_file_names(read_id_file, summary_file):
     return signal_files
 
 
-def get_absolute_filepath(file_names, file_directory, output_directory):
-    if file_directory[-1] != "/":
-        file_directory += "/"
+def get_absolute_filepath(file_names, signal_directory, output_directory):
+    if signal_directory[-1] != "/":
+        signal_directory += "/"
 
     # process the output directory
     if output_directory[-1] != "/":
@@ -46,9 +47,8 @@ def get_absolute_filepath(file_names, file_directory, output_directory):
         os.makedirs(output_directory)
 
     for file_name in file_names:
-
-        files = glob.glob(file_directory+file_name)
-        print("FINDING", file_name, " OUTPUT: ", files)
+        files = Path(signal_directory).rglob(file_name)
+        print("FINDING", signal_directory+file_name, " OUTPUT: ", files)
         for file in files:
             print("COPYING " + file_name + " TO " + output_directory)
             src_file = os.path.abspath(file)
