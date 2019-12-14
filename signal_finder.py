@@ -50,9 +50,9 @@ def get_absolute_filepath(extract_file_names, signal_directory, output_directory
         for file_name in files:
             if file_name in extract_file_names:
                 print("COPYING " + file_name + " TO " + output_directory)
-                src_file = os.path.abspath(file_name)
+                src_file = os.path.join(root, file_name)
                 copyfile(src_file, output_directory+file_name)
-                count= count + 1
+                count = count + 1
 
     print("TOTAL " + count + " FAST5 FILES COPIED TO " + output_directory)
 
