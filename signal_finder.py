@@ -21,7 +21,6 @@ def get_all_signal_file_names(read_id_file, summary_file):
             file_name = line[0]
             read_id = line[1]
             summary_dictionary[read_id] = file_name
-            # print(file_name, read_id)
 
     signal_files = []
     with open(read_id_file) as read_file_pointer:
@@ -47,7 +46,9 @@ def get_absolute_filepath(file_names, file_directory, output_directory):
         os.makedirs(output_directory)
 
     for file_name in file_names:
+
         files = glob.glob(file_directory+file_name)
+        print("FINDING", file_name, " OUTPUT: ", files)
         for file in files:
             print("COPYING " + file_name + " TO " + output_directory)
             src_file = os.path.abspath(file)
