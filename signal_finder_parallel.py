@@ -26,19 +26,19 @@ def get_all_signal_file_names(read_id_file, summary_file):
             read_id = line[1]
             summary_dictionary[read_id] = file_name
 
-    signal_files = []
+    signal_files = set()
     with open(read_id_file) as read_file_pointer:
         for cnt, line in enumerate(read_file_pointer):
             read_id = line.rstrip()
             if read_id in summary_dictionary.keys():
-                signal_files.append(summary_dictionary[read_id])
+                signal_files.add(summary_dictionary[read_id])
             else:
                 sys.stderr.write("WARNING: ", read_id, " NOT PRESENT IN SUMMARY FILE\n")
                 sys.stderr.flush()
 
     sys.stderr.write("TOTAL " + str(len(signal_files)) + " FILES FOUND\n")
     sys.stderr.flush()
-    return signal_files
+    return list(signal_files)
 
 
 def move_files(signal_directory, output_directory, all_extract_file_names, thread_id, total_threads):
