@@ -46,13 +46,11 @@ def get_absolute_filepath(file_names, signal_directory, output_directory):
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
-    for file_name in file_names:
-        files = Path(signal_directory).rglob(file_name)
-        print("FINDING", signal_directory+file_name, " OUTPUT: ", files)
+    for root, dirs, files in os.walk(signal_directory):
         for file in files:
-            print("COPYING " + file_name + " TO " + output_directory)
-            src_file = os.path.abspath(file)
-            copyfile(src_file, output_directory+file_name)
+            print(file, os.path.join(root, file))
+        for dir in dirs:
+            print(dir, os.path.join(root, dir))
 
 
 if __name__ == '__main__':
