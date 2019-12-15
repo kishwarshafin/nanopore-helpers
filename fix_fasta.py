@@ -53,5 +53,4 @@ if __name__ == '__main__':
         help="Path to output directory."
     )
     FLAGS, unparsed = parser.parse_known_args()
-    signal_file_names = get_all_signal_file_names(FLAGS.read_ids, FLAGS.summary_file)
-    parallel_method_master(signal_file_names, FLAGS.signal_directory, FLAGS.output_directory, FLAGS.threads)
+    fix_fasta(FLAGS.input_fasta)
