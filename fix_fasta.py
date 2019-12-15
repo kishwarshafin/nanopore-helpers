@@ -30,6 +30,8 @@ def fix_fasta(input_fasta):
         for line in ins:
             line = line.rstrip()
             if check_if_line_is_only_sequence(line) is False:
+                print(">"+line)
+            else:
                 print(line)
 
 
