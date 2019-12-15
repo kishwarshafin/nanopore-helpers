@@ -50,12 +50,5 @@ if __name__ == '__main__':
         required=True,
         help="Path to the input fasta file."
     )
-    parser.add_argument(
-        "-o",
-        "--output_directory",
-        type=str,
-        required=False,
-        help="Path to output directory."
-    )
     FLAGS, unparsed = parser.parse_known_args()
     fix_fasta(FLAGS.input_fasta)
