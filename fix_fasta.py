@@ -16,8 +16,11 @@ THIS SCRIPT FIXES FASTA FILES THAT DOESN'T HAVE '>' BEFORE READ NAME
 def check_if_line_is_only_sequence(line):
     line_list = list(line)
     for elm in line_list:
-        if elm != 'A' or elm != 'C' or elm != 'G' or elm != 'T' or elm != 'N':
+        if elm == 'A' or elm == 'C' or elm == 'G' or elm == 'T' or elm == 'N':
+            continue
+        else:
             return False
+
     return True
 
 
