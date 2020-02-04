@@ -33,7 +33,7 @@ def get_all_signal_file_names(read_id_file, summary_file):
             if read_id in summary_dictionary.keys():
                 signal_files.add(summary_dictionary[read_id])
             else:
-                sys.stderr.write("WARNING: ", read_id, " NOT PRESENT IN SUMMARY FILE\n")
+                sys.stderr.write("WARNING: "+ str(read_id) + " NOT PRESENT IN SUMMARY FILE\n")
                 sys.stderr.flush()
 
     sys.stderr.write("TOTAL " + str(len(signal_files)) + " FILES FOUND\n")
